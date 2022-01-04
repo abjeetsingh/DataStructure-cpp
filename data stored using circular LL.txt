@@ -1,0 +1,149 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+struct node
+{
+	int info;
+	struct node *next;
+	char name[20];
+}*start;
+void create_list(int data,char key[])
+{
+	struct node *node, *new_node;
+	new_node=(struct node*)malloc(sizeof(struct node));
+	new_node->info=data;
+	new_node->next=NULL;
+	strcpy(new_node->name,key);
+	if(start==NULL)
+	{
+		new_node->next=new_node;
+		start=new_node;
+		
+	}
+	else
+	{
+		node=start;
+		while(node->next!=start)
+		{
+			node=node->next;
+			
+		}
+		node->next=new_node;
+		new_node->next=start;
+		
+	}
+}
+void add_at_pos(int data,int pos,char key[])
+{
+	int count=1;
+	struct node *new_node,*node=start;
+	new_node=(struct node*)malloc(sizeof(struct node));
+	new_node->info=data;
+	strcpy(new_node->name,key);
+	while(count<pos-1)
+	{
+		node=node->next;
+		count++;
+		
+	}
+
+}
+void delete_at_end()
+{
+	if(start==NULL)
+	{
+		printf("\nLIST IS EMPTY");
+		return;
+		
+	}
+	else
+	{
+	
+	struct node *node=start,*prev=NULL;
+	while(node->next!=start)
+	{
+		prev=node;
+		node=node->next;
+		
+	}
+	prev->next=node->next;
+	free(node);
+}
+}
+void display()
+{
+	struct node *node=start;
+	if(start==NULL)
+	{
+		printf("\n LIST IS EMPTY");
+		return;
+		
+	}
+	else
+	{
+		printf("\nLIST IS:");
+		do
+		{
+			printf("%d%s\n",node->info,node->name);
+			node=node->next;
+			
+		}while(node!=start);
+		
+	}
+}
+int main()
+{
+	start=NULL;
+	int ch,n,m,pos,i;
+	char input[20];
+	while(1)
+	{        
+		printf("\n1.CREATE LIST OF COLLEGES\n");
+		printf("\n2.INSERT COLLEGE ID AT A POSITION\n");
+		printf("\n3.DELETE COLLEGE ID AT END\n");
+		printf("\n4.DISPLAY\n");
+		printf("\n5.QUIT\n");
+		printf("\nENTER CHOICE:\n");
+		scanf("%d",&ch);
+		switch(ch)
+		{
+			case 1:
+				printf("\n ENTER NUMBER OF COLLEGES:");
+				scanf("%d",&n);
+				for(i=1;i<=n;i++)
+				{
+					printf("\n ENTER COLLEGE ID:");
+					scanf("%d",&m);
+					printf("\n ENTER COLLEGE NAME:");
+					scanf("%s",input);
+					create_list(m,input);
+					
+				}
+				break;
+				case 2:
+					printf("\n ENTER COLLEGE ID:");
+					scanf("%d",&m);
+					printf("\n ENTER COLLEGE NAME:");
+					scanf("%s",input);
+					printf("\n ENTER POSITION:");
+					scanf("%d",&pos);
+					add_at_pos(m,pos,input);
+					break;
+					
+				case 3:
+					delete_at_end();
+					break;
+				
+				case 4:
+					display();
+					break;
+					
+				case 5:
+					exit(0);
+					
+				default:
+				printf("\n WRONG CHOICE!")	
+					
+		}
+	}
+}
