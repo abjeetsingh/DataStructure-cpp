@@ -1,0 +1,86 @@
+#include<stdio.h>
+#include<conio.h>
+#include<process.h>
+#include<stdlib.h>
+
+struct node
+{ 
+	int info;
+  struct node *next;
+ }*front=NULL,*rear=NULL;
+
+void display()
+{ struct node *fr1=front;
+  if((fr1==NULL)&&(rear==NULL))
+    printf("Queue is empty....\n");
+  else
+  {  printf("The queue is: ");
+    while(fr1!=rear)
+    {   printf("%d\t",fr1->info);
+	fr1=fr1->next; }
+    if(fr1==rear)
+      printf("%d\t",fr1->info);
+     }
+     printf("\n");
+  }
+void insert()
+{ struct node *temp;
+  int item;
+  printf("Enter the element in the queue: ");
+  scanf("%d",&item);
+  if(rear==NULL)
+  { rear= (struct node *)malloc(sizeof(struct node));
+    rear->next=NULL;
+    rear->info=item;
+    front =rear;
+   }
+  else
+  { temp= (struct node*)malloc(sizeof(struct node));
+    rear->next=temp;
+    temp->info=item;
+    temp->next=NULL;
+    rear =temp;}
+    printf("Element inserted...\n");
+    display();
+}
+void Delete()
+{  struct node *fr1=front;
+   if(fr1==NULL)
+     printf("Empty queue!!!!\n");
+   else if(fr1->next!=NULL)
+   {  fr1=fr1->next;
+      free(front);
+      front=fr1;
+    }
+   else
+   {  free(front);
+      front=NULL;
+      rear=NULL;
+    }
+   printf("Element deleted...\n");
+   display();
+}
+int main()
+{  int ch;
+   printf("\t\tMain Menu\t\t\n");
+   printf("1. Insert element in queue.\n");
+   printf("2. Delete element from queue.\n");
+   printf("3. Display the queue.\n");
+   printf("4. Exit\n");
+   while(ch!=4)
+   { printf("\nEnter your choice: ");
+     scanf("%d",&ch);
+     switch(ch)
+     {     case 1: insert();
+		break;
+	case 2: Delete();
+		break;
+	case 3: display();
+		break;
+	case 4: exit(0);
+	default: printf("Wrong Input!!!\n");
+       }
+        	
+   }
+   getch();
+}
